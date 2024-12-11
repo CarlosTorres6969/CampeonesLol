@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package campeones;
+
+option go_package = "campeoneslol-grcp/proto;campeones";
+
+service CampeonService {
+  rpc GetCampeonInfo (CampeonRequest) returns (CampeonResponse);
+  rpc GetCampeonList (Empty) returns (stream CampeonResponse);
+  rpc AddCampeones (stream NewCampeonRequest) returns (AddCampeonResponse);
+  rpc GetCampeonByType (stream CampeonTypeRequest) returns (stream CampeonResponse);
+}
+
+message CampeonRequest {
+  string name = 1;
+}
+
+message CampeonResponse {
+  string name = 1;
+  string type = 2;
+  string tier = 3;
+}
+
+message NewCampeonRequest {
+  string name = 1;
+  string type = 2;
+  string tier = 3;
+}
+
+message AddCampeonResponse {
+  int32 count = 1;
+}
+
+message Empty {}
+
+message CampeonTypeRequest {
+  string type = 1;
+}
